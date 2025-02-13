@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine's Day</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ff7eb3, #ff758c);
+      font-family: 'Arial', sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    h1 {
+      color: white;
+      font-size: 4rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .container {
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .buttons {
+      margin-top: 30px;
+      position: relative;
+      width: 400px;
+      height: 200px;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 1.5rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin: 0 10px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    #yesButton {
+      background-color: #ff4d4d;
+      color: white;
+    }
+
+    #yesButton:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    #noButton {
+      background-color: #ffcccb;
+      color: black;
+      position: absolute;
+    }
+
+    #noButton:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      z-index: 1000;
+      animation: slideIn 0.5s ease-in-out;
+    }
+
+    .modal h2 {
+      color: #ff4d4d;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .modal p {
+      font-size: 1.5rem;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .modal button {
+      background-color: #ff4d4d;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: transform 0.2s ease;
+    }
+
+    .modal button:hover {
+      transform: scale(1.1);
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 999;
+      backdrop-filter: blur(5px);
+    }
+
+    .balloon {
+      position: absolute;
+      width: 100px;
+      height: 120px;
+      background: #ff7eb3;
+      border-radius: 50%;
+      animation: float 6s infinite;
+      z-index: 1;
+    }
+
+    .balloon::before {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      width: 2px;
+      height: 50px;
+      background: #ff4d4d;
+      transform: translateX(-50%);
+    }
+
+    .balloon:nth-child(1) {
+      background: #ff7eb3;
+      left: 10%;
+      top: 10%;
+      animation-duration: 8s;
+    }
+
+    .balloon:nth-child(2) {
+      background: #ffcccb;
+      left: 30%;
+      top: 20%;
+      animation-duration: 7s;
+    }
+
+    .balloon:nth-child(3) {
+      background: #ff758c;
+      left: 50%;
+      top: 15%;
+      animation-duration: 9s;
+    }
+
+    .balloon:nth-child(4) {
+      background: #ff7eb3;
+      left: 70%;
+      top: 10%;
+      animation-duration: 6s;
+    }
+
+    .balloon:nth-child(5) {
+      background: #ffcccb;
+      left: 90%;
+      top: 20%;
+      animation-duration: 8s;
+    }
+
+    .heart {
+      position: absolute;
+      color: #ff4d4d;
+      font-size: 2.5rem;
+      animation: float 5s infinite;
+    }
+
+    .heart:nth-child(6) {
+      left: 5%;
+      top: 40%;
+      animation-duration: 6s;
+    }
+
+    .heart:nth-child(7) {
+      left: 25%;
+      top: 50%;
+      animation-duration: 7s;
+    }
+
+    .heart:nth-child(8) {
+      left: 45%;
+      top: 60%;
+      animation-duration: 8s;
+    }
+
+    .heart:nth-child(9) {
+      left: 65%;
+      top: 50%;
+      animation-duration: 6s;
+    }
+
+    .heart:nth-child(10) {
+      left: 85%;
+      top: 40%;
+      animation-duration: 7s;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideIn {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+      }
+      100% {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Will you be my Valentine?</h1>
+    <div class="buttons">
+      <button id="yesButton">Yes</button>
+      <button id="noButton">No</button>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay"></div>
+  <div class="modal" id="modal">
+    <h2>💖 Yay! 💖</h2>
+    <p>You made my day! Happy Valentine's Day!</p>
+    <button id="closeModal">Close</button>
+  </div>
+
+  <div class="balloon"></div>
+  <div class="balloon"></div>
+  <div class="balloon"></div>
+  <div class="balloon"></div>
+  <div class="balloon"></div>
+
+  <div class="heart">❤️</div>
+  <div class="heart">❤️</div>
+  <div class="heart">❤️</div>
+  <div class="heart">❤️</div>
+  <div class="heart">❤️</div>
+
+  <script>
+    const noButton = document.getElementById('noButton');
+    const yesButton = document.getElementById('yesButton');
+    const buttonsContainer = document.querySelector('.buttons');
+    const modal = document.getElementById('modal');
+    const overlay = document.getElementById('overlay');
+    const closeModal = document.getElementById('closeModal');
+
+    noButton.addEventListener('mouseover', () => {
+      const containerRect = buttonsContainer.getBoundingClientRect();
+      const buttonRect = noButton.getBoundingClientRect();
+
+      const maxX = containerRect.width - buttonRect.width;
+      const maxY = containerRect.height - buttonRect.height;
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
+      noButton.style.left = `${x}px`;
+      noButton.style.top = `${y}px`;
+    });
+
+    yesButton.addEventListener('click', () => {
+      modal.style.display = 'block';
+      overlay.style.display = 'block';
+    });
+
+    closeModal.addEventListener('click', () => {
+      modal.style.display = 'none';
+      overlay.style.display = 'none';
+    });
+
+    overlay.addEventListener('click', () => {
+      modal.style.display = 'none';
+      overlay.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
